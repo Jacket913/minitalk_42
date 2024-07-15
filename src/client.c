@@ -6,11 +6,19 @@
 /*   By: gmoulin <gmoulin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 13:25:56 by gmoulin           #+#    #+#             */
-/*   Updated: 2024/06/27 16:47:54 by gmoulin          ###   ########.fr       */
+/*   Updated: 2024/07/15 19:00:20 by gmoulin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
+
+static void	received(int sig)
+{
+	if (sig == SIGUSR1)
+		ft_printf("Message received by the server.\n");
+	else
+		ft_printf("Error. Try again.\n");
+}
 
 //Converts a string to binary
 void	sendbyte(char c, int pid)
@@ -36,14 +44,17 @@ int		main(int ac, char **av)
 	int	pid;
 	int	i;
 
+	i = 0;
 	if (ac != 3)
 		return (ft_printf("Error. Try \"./client <PID> <MESSAGE>\".\n"), 1);
 	pid = ft_atoi(av[1]);
-	i = 0;
 	while (av[2][i])
 	{
+		signal(SIGUSR1, received);
+		signal(SIGUSR2, received);
 		sendbyte(av[2][i], pid);
 		i++;
 	}
+	sendbyte(0, pid);
 	return (0);
 }

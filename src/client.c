@@ -6,7 +6,7 @@
 /*   By: gmoulin <gmoulin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 13:25:56 by gmoulin           #+#    #+#             */
-/*   Updated: 2024/07/15 19:00:20 by gmoulin          ###   ########.fr       */
+/*   Updated: 2024/09/17 16:18:39 by gmoulin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ static void	received(int sig)
 		ft_printf("Error. Try again.\n");
 }
 
-//Converts a string to binary
 void	sendbyte(char c, int pid)
 {
 	int	bit;
@@ -38,8 +37,7 @@ void	sendbyte(char c, int pid)
 	}
 }
 
-//Sends the binary string to the server
-int		main(int ac, char **av)
+int	main(int ac, char **av)
 {
 	int	pid;
 	int	i;

@@ -3,14 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andymalgonne <andymalgonne@student.42.f    +#+  +:+       +#+        */
+/*   By: gmoulin <gmoulin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 17:56:28 by gmoulin           #+#    #+#             */
-/*   Updated: 2024/04/26 10:21:35 by andymalgonn      ###   ########.fr       */
+/*   Updated: 2024/09/17 16:22:41 by gmoulin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
+int	pnbase(long n, int baselength, char *base)
+{
+	int	length;
+
+	length = 0;
+	if (n < 0)
+	{
+		n *= -1;
+		length += ft_putchar('-');
+	}
+	if (n >= baselength)
+		length += pnbase(n / baselength, baselength, base);
+	return (length + ft_putchar(base[n % baselength]));
+}
 
 int	check_format(char c, va_list *args)
 {
@@ -35,7 +50,6 @@ int	check_format(char c, va_list *args)
 	return (0);
 }
 
-
 int	ft_printf(const char *format, ...)
 {
 	int		i;
@@ -47,7 +61,7 @@ int	ft_printf(const char *format, ...)
 	va_start(args, format);
 	length = 0;
 	i = 0;
-	while(format[i] != '\0')
+	while (format[i] != '\0')
 	{
 		if (format[i] == '%')
 			length += check_format(format[++i], &args);
@@ -58,7 +72,3 @@ int	ft_printf(const char *format, ...)
 	va_end(args);
 	return (length);
 }
-
-/*int main() {
-	ft_printf("yo %c, %c\n", '0', 0);
-}*/

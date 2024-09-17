@@ -6,7 +6,7 @@
 /*   By: gmoulin <gmoulin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 14:09:50 by gmoulin           #+#    #+#             */
-/*   Updated: 2024/06/12 17:00:23 by gmoulin          ###   ########.fr       */
+/*   Updated: 2024/09/17 16:21:09 by gmoulin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <stdarg.h>
-
 
 /* GNL UTILS */
 # ifndef MAX_FD

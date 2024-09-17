@@ -6,7 +6,7 @@
 /*   By: gmoulin <gmoulin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 13:25:50 by gmoulin           #+#    #+#             */
-/*   Updated: 2024/07/15 18:59:18 by gmoulin          ###   ########.fr       */
+/*   Updated: 2024/09/17 16:18:18 by gmoulin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,13 @@ void	sighandler(int sig, siginfo_t *info, void *context)
 			kill(info->si_pid, SIGUSR1);
 		}
 		else
-		ft_printf("%c", result);
+			ft_printf("%c", result);
 		result = 0;
 		bit = 0;
 	}
 }
 
-//Receives and processes the binary string
-int		main(int ac, char **av)
+int	main(int ac, char **av)
 {
 	struct sigaction	sa;
 
@@ -57,4 +56,3 @@ int		main(int ac, char **av)
 	}
 	return (0);
 }
-

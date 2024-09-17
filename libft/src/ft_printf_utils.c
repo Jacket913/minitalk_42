@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andymalgonne <andymalgonne@student.42.f    +#+  +:+       +#+        */
+/*   By: gmoulin <gmoulin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 17:56:18 by gmoulin           #+#    #+#             */
-/*   Updated: 2024/04/26 10:21:39 by andymalgonn      ###   ########.fr       */
+/*   Updated: 2024/09/17 16:22:34 by gmoulin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,21 +32,6 @@ int	ft_putstr(char *s)
 	if (!s)
 		return (write(1, "(null)", 6));
 	return (write(1, s, ft_safe_strlen(s)));
-}
-
-int	pnbase(long n, int baselength, char *base)
-{
-	int	length;
-
-	length = 0;
-	if (n < 0)
-	{
-		n *= -1;
-		length += ft_putchar('-');
-	}
-	if (n >= baselength)
-		length += pnbase(n / baselength, baselength, base);
-	return (length + ft_putchar(base[n % baselength]));
 }
 
 int	put_ptr(unsigned long n, unsigned long baselength, char *base)

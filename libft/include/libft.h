@@ -6,7 +6,7 @@
 /*   By: gmoulin <gmoulin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 14:09:50 by gmoulin           #+#    #+#             */
-/*   Updated: 2024/09/17 16:21:09 by gmoulin          ###   ########.fr       */
+/*   Updated: 2024/09/18 15:47:43 by gmoulin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,18 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <stdarg.h>
+# include <limits.h>
+# include <fcntl.h>
 
 /* GNL UTILS */
 # ifndef MAX_FD
 #  define MAX_FD 1024
 # endif
 
+# define FALSE 0
+# define TRUE 1
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1
+#  define BUFFER_SIZE 200
 # endif
 
 /* FUNCTIONS */
@@ -83,6 +87,15 @@ void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 
 char	*get_next_line(int fd);
+int		read_file(int fd, char **buffer);
+char	*process_buffer(char *buffer);
+int		is_valid(char *line);
+
+size_t	find_end_line(char *s);
+char	*ft_strcat(char *s1, char *s2);
+void	ft_shift_str(char *s, size_t shift, size_t len);
+
+char	*oget_next_line(int fd, char **line);
 
 int		ft_printf(const char *input, ...);
 int		ft_putchar(int c);

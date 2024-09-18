@@ -5,56 +5,62 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: gmoulin <gmoulin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/11 16:17:42 by gmoulin           #+#    #+#             */
-/*   Updated: 2024/06/12 17:02:18 by gmoulin          ###   ########.fr       */
+/*   Created: 2024/09/18 15:44:43 by gmoulin           #+#    #+#             */
+/*   Updated: 2024/09/18 15:48:23 by gmoulin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_bzero(void *s, size_t n)
+size_t	find_end_line(char *s)
 {
-	unsigned char	*ptr;
+	size_t	i;
 
-	ptr = s;
-	while (n--)
+	i = -1;
+	while (s[++i] && i < BUFFER_SIZE)
 	{
-		*ptr++ = 0;
+		if (s[i] == '\n')
+			return (i + 1);
 	}
+	if (s[i])
+		return (i - 1);
+	return (i);
 }
 
-char	*ft_strchr(const char *s, int c)
+char	*ft_strcat(char *s1, char *s2)
 {
-	char	a;
+	size_t	i;
+	size_t	s1_len;
+	size_t	s2_len;
+	char	*str;
 
-	a = (char)c;
-	while (*s)
-	{
-		if (*s == a)
-			return ((char *) s);
-		s++;
-	}
-	if (*s == a)
-		return ((char *) s);
-	return (NULL);
+	i = -1;
+	s1_len = ft_strlen(s1);
+	s2_len = ft_strlen(s2);
+	str = ft_calloc(s1_len + s2_len + 1, sizeof(char));
+	if (!str)
+		return (NULL);
+	while (++i < s1_len)
+		str[i] = s1[i];
+	--i;
+	while (++i < s1_len + s2_len)
+		str[i] = s2[i - s1_len];
+	str[i] = '\0';
+	free(s1);
+	free(s2);
+	return (str);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+void	ft_shift_str(char *s, size_t shift, size_t len)
 {
-	unsigned char	*ptr;
-	size_t			bkplen;
+	size_t	i;
 
-	if (!s1 || !s2)
-		return (NULL);
-	bkplen = (ft_strlen(s1) + ft_strlen(s2));
-	ptr = (unsigned char *) malloc(sizeof(char) * bkplen + 1);
-	if (!ptr)
-		return (NULL);
-	while (*s1)
-		*ptr++ = *s1++;
-	while (*s2)
-		*ptr++ = *s2++;
-	*ptr = '\0';
-	ptr -= bkplen;
-	return ((char *)ptr);
+	i = -1;
+	while (++i < len)
+	{
+		if (shift + i >= len)
+			s[i] = '\0';
+		else
+			s[i] = s[shift + i];
+	}
 }

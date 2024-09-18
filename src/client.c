@@ -6,7 +6,7 @@
 /*   By: gmoulin <gmoulin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 13:25:56 by gmoulin           #+#    #+#             */
-/*   Updated: 2024/09/17 16:18:39 by gmoulin          ###   ########.fr       */
+/*   Updated: 2024/09/18 18:31:07 by gmoulin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ void	sendbyte(char c, int pid)
 
 int	main(int ac, char **av)
 {
-	int	pid;
-	int	i;
+	size_t	pid;
+	int		i;
 
 	i = 0;
 	if (ac != 3)

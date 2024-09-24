@@ -6,7 +6,7 @@
 /*   By: gmoulin <gmoulin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 13:25:50 by gmoulin           #+#    #+#             */
-/*   Updated: 2024/09/17 16:18:18 by gmoulin          ###   ########.fr       */
+/*   Updated: 2024/09/24 13:55:43 by gmoulin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	sighandler(int sig, siginfo_t *info, void *context)
 	static int	result;
 	static int	bit;
 
-	(void)info;
 	(void)context;
 	if (sig == SIGUSR1)
 		result |= (1 << bit);
@@ -28,13 +27,14 @@ void	sighandler(int sig, siginfo_t *info, void *context)
 		if (result == 0)
 		{
 			printf("\n");
-			kill(info->si_pid, SIGUSR1);
+			kill(info->si_pid, SIGUSR2);
 		}
 		else
 			ft_printf("%c", result);
 		result = 0;
 		bit = 0;
 	}
+	kill(info->si_pid, SIGUSR1);
 }
 
 int	main(int ac, char **av)
@@ -46,13 +46,11 @@ int	main(int ac, char **av)
 		return (ft_printf("Error. Try \"./server\".\n"), 1);
 	ft_printf("PID: %d\nListening for signals...\n", getpid());
 	sa.sa_flags = SA_SIGINFO;
-	sa.sa_sigaction = sighandler;
+	sa.sa_sigaction = &sighandler;
 	sigemptyset(&sa.sa_mask);
-	while (ac == 1)
-	{
-		sigaction(SIGUSR1, &sa, NULL);
-		sigaction(SIGUSR2, &sa, NULL);
+	sigaction(SIGUSR1, &sa, NULL);
+	sigaction(SIGUSR2, &sa, NULL);
+	while (1)
 		pause();
-	}
 	return (0);
 }
